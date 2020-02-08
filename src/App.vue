@@ -1,28 +1,70 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <component v-bind:is="componentName"></component>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { store } from './store';
+import HomePage from './components/HomePage';
+import MenuPage from './components/MenuPage';
+import CluesPage from './components/CluesPage';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    HomePage,
+    MenuPage,
+    CluesPage,
+  },
+  data() {
+    return {
+      storeState: store.state,
+    }
+  },
+  computed: {
+    componentName() {
+      const section = this.storeState.section;
+      const sectionUCase = section.charAt(0).toUpperCase() + section.substring(1);
+      return sectionUCase + 'Page';
+    }
+  },
+  created() {
+    this.fetchClues()
+  },
+  methods: {
+    fetchClues() {
+      fetch('http://phoenixjaymes.com/assets/data/language/clues/')
+      .then((reponse) => reponse.json())
+      .then((responseData) => {
+        // loading: false
+
+        if (responseData.status === 'success') {
+          store.setWordsData(responseData.data);
+        }
+      })
+      .catch((error) => {
+        // loading: false
+        window.console.log(error);
+      });
+    },
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #000;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+}
+
+ul {
+  list-style: none;
 }
 </style>
