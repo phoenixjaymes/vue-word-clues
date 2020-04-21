@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     fetchClues() {
-      fetch('http://phoenixjaymes.com/assets/data/language/clues/')
+      fetch('https://phoenixjaymes.com/assets/data/language/clues/')
       .then((reponse) => reponse.json())
       .then((responseData) => {
         // loading: false

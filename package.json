@@ -1,7 +1,7 @@
 {
   "name": "v-word-clues",
   "version": "0.1.0",
-  "homepage": "http://phoenixjaymes/lab/v-word-clues/",
+  "homepage": "https://phoenixjaymes/lab/v-word-clues/",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
